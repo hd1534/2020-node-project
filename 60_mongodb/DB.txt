@@ -1,0 +1,38 @@
+1. 관계형 DB : MSSQL, MariaDB, Oracle, postgreSQL
+- 관계형 모델을 기반으로 함
+- 테이블 스키마 고정
+- SQL을 통해 CRUD(Create, Read, Update, Delete) 처리
+- 무결성
+
+2. NoSQL : MongoDB
+- 빠른 저장, 빠른 검색 => 빅데이터
+- 확장성
+
+
+
+3. mongo 설치
+    서버 데몬 : mongod --dbpath=data  //data 는 원한는 폴더의 경로
+    클라이언트 : mongo // 로컬이라 딱히 아무것도 할 필요 없
+
+4. mongodb shell 명령어
+    database :
+        db "db명"  : 만들기
+        use "db명" : 전환
+        show dbs : 데이터 베이스목록 보기
+    collection :
+        db.createCollection("collection명")  : collection 만들기
+        show collections  : collection 목록보기
+        db."collection명".drop()  :collection 지우기
+    document :
+    db."collection명".insert({data})  : data 추가  // data는 json 형식
+    db."collection명".find() : 전체 조회
+    db."collection명".find().pretty() : 전체 조회를 보기 편하게 // json을 보기 편하게
+    db."collection명".find({조회조건},{원하는 컬럼}) : 조건에 맞는걸 원하는 필드만
+        조회조건 : {"필드" : "원하는값", "필드" : "원하는 조건"}
+        원하는 필드 : {_id : 0, "원하는 필드" : 1, "원치 않는 필드" : 0} // 원하는 필드만 1하면 _id를 제외하고 언급 안된것들은 안나오더라
+
+    db."collection명".update({조회조건}, {바꿀 값}) : 값 바꾸기
+    db."collection명".update({조회조건}, {$set: {"필드명": "값"}}) : 원하는 곳만 값 바꾸기
+    db."collection명".remove({조건}) : 삭제  // 조건이 비면 다 지운다.
+
+    

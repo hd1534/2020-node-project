@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("../header"); -%>  <!-- 불러오기 -->
+
+<body> 
+  <%- include("../menu"); -%>
+
+
+  <div class="md-form">
+      <input
+        type="text"
+        id="title"
+        class="form-control"
+        value="<%= result.title %>"
+        readonly
+      />
+      <label for="title">Title</label>
+  </div>
+  <div class="md-form">
+    <input
+      type="text"
+      id="director"
+      class="form-control"
+      value="<%= result.director %>"
+      readonly
+    />
+    <label for="director">Director</label>
+  </div>
+  <div class="md-form">
+    <input
+      type="text"
+      id="year"
+      class="form-control"
+      value="<%= result.year %>"
+      readonly
+    />
+    <label for="year">Year</label>
+  </div>
+
+  <button
+    type="button"
+    class="btn btn-primary"
+    onclick="location.href='/api/movie/id/<%= result._id %>/edit'"
+  >수정</button>
+  <button id ="deleteBtn" type="button" class="btn btn-primary">삭제</button>
+
+
+  <%- include("../footer.ejs"); -%>
+
+  <script>
+    $(function () {
+        $("#deleteBtn").on("click", () => {
+            event.preventDefault();
+            if (confirm("삭제하시겠습니까?")) {
+                $.ajax({
+                    url: "/api/movie/id/<%= result._id %>",
+                    type: "DELETE"
+                }).done(() => {
+                    location.href = "/api/movie/";
+                }).fail((request, status, error) => {
+                    alert(request.responseText);
+                })
+            }
+            else {
+              // 취소
+            }
+        });
+    });
+</script>
+</body>
+</html>

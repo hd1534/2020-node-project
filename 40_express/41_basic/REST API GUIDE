@@ -1,0 +1,6 @@
+1. HTTP 요청시 자원을 명시 (이때 자원은 명사로 나타낸다.)
+    ex) GET /users, GET /users/1
+
+2. 작업의 구분은 method로 
+    올바른 예:
+    

@@ -1,0 +1,22 @@
+npm = 설치
+npx = 설치 x 최신버전 실행만 함.
+위의 코드들은 
+
+express --view=pug 51_music  // 이건 미리 설치함
+npx express-generator --view=ejs 52_movie
+로 설치함
+
+
+
+수업 시간에 한거.
+npm 이용  // 설치 해서 사용
+1. Express Generator 설치
+    npm install express-generator
+
+2. Express Generator 실행
+    express --view=pug 51_music
+    npm install
+    npm start`
+
+npx 이용  // 설치 안하고 최신거를 실행만
+1. npx express-generator --view=ejs 52_movie
