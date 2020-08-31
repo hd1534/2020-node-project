@@ -20,3 +20,8 @@
     1) Node.js
     2) Yarn : 개선된 버전의 npm
     3) npx create-react-app YOUR_APP_NAME
+
+
+5. JSX 규칙
+
+6. props

@@ -94,7 +94,7 @@ selected.done = !selected.done; // 수정
 */
 
 const inserted = todo.concat({
-  // 추가
+  // 추가  (참고로 concat은 얕은 복사를 한다)
   id: 3,
   text: "저녁밥 먹기",
   done: false,
