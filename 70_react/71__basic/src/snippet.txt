@@ -1,0 +1,14 @@
+import React from "react";
+
+function ${TM_FILENAME_BASE}() {
+  return (<>
+    $1
+  </>);
+}
+
+
+export default ${TM_FILENAME_BASE}
+
+// https://snippet-generator.app/?description=create+a+functional+component&tabtrigger=fc&snippet=import+React+from+%22react%22%3B%0A%0Afunction+%24%7BTM_FILENAME_BASE%7D%28%29+%7B%0A++return+%3C%3E%3C%2F%3E%3B%0A%7D%0A%0A%0Aexport+default+%24%7BTM_FILENAME_BASE%7D&mode=vscode
+
+file -> preference -> user snippet
