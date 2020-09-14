@@ -41,6 +41,12 @@ function Music({ music, onRemove, onToggle }) {
 }
 
 function MusicList({ musicList, onRemove, onToggle }) {
+  const countActiveMusic = () => {
+    console.log("Active Music 개수 세기");
+    return musicList.filter((music) => music.active).length;
+  };
+  const count = countActiveMusic();
+
   return (
     <>
       {musicList.map((item) => (
@@ -51,6 +57,8 @@ function MusicList({ musicList, onRemove, onToggle }) {
           onToggle={onToggle}
         />
       ))}
+      <hr />
+      <div>Active된 Music 수 : {count}</div>
     </>
   );
 }
