@@ -1,26 +1,65 @@
-import React from "react";
-import "./App.css";
-import StateSample from "./stateSample";
-import InputSample from "./inputSample";
-import MultiInputSample from "./multiInputSample";
-
-// 함수형 컴포넌트
-// JSX를 리턴
-
-// JSX 규칙
-// 1. 2개 이상의 태그는 반드시 하나의 태그로 감싸주어야 한다.  (주로 <div></div>, <></> 를 쓴다. fragment)
-// 2. 여는 태그와 닫는 태그가 항상 있어야 한다. (self-closing (<a />)을 사용해도 된다.)
-// 3. JSX 안에서 javascript 값을 사용할 때에는 {} 를 사용한다
-// 4. 인라인 style 작성 시 객체로 작성 (Camelcase)
-// 5. css class 설정 시 class -> className
-// 6. 주석 작성 {/* */}
+import React, { useState } from "react";
+import { useRef } from "react";
+import MusicList from "./MusicList";
+import CreateMusic from "./CreateMusic";
 
 function App() {
+  const [music, setMusic] = useState({
+    title: "",
+    singer: "",
+    active: false,
+  });
+
+  const { title, singer } = music;
+
+  let [musicList, setMusicList] = useState([
+    { id: 1, singer: "아이유", title: "Eight", active: false },
+    { id: 2, singer: "유산슬", title: "합정역5번출구", active: false },
+    { id: 3, singer: "악동뮤지션", title: "크레셴도", active: false },
+  ]);
+
+  const nextId = useRef(4);
+  const inputSinger = useRef();
+
+  const onCreate = () => {
+    // setMusicList([...musicList, { id: nextId.current, ...music }]);
+    setMusicList(musicList.concat({ id: nextId.current, ...music }));
+    setMusic({ title: "", singer: "", active: false });
+    nextId.current += 1;
+    inputSinger.current.focus();
+  };
+
+  const onChange = (event) => {
+    const { name, value } = event.target;
+    setMusic({ ...music, [name]: value });
+  };
+
+  const onRemove = (id) => {
+    setMusicList(musicList.filter((item) => item.id !== id));
+  };
+
+  const onToggle = (id) => {
+    setMusicList(
+      musicList.map((music) =>
+        music.id === id ? { ...music, active: !music.active } : music
+      )
+    );
+  };
+
   return (
     <>
-      <MultiInputSample />
-      {/* <InputSample /> */}
-      {/* <StateSample /> */}
+      <CreateMusic
+        title={title}
+        singer={singer}
+        onChange={onChange}
+        onCreate={onCreate}
+        inputSinger={inputSinger}
+      />
+      <MusicList
+        musicList={musicList}
+        onRemove={onRemove}
+        onToggle={onToggle}
+      />
     </>
   );
 }
