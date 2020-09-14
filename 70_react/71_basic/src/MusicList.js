@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import Music2 from "./Music2";
 
 function Music({ music, onRemove, onToggle }) {
@@ -45,7 +45,7 @@ function MusicList({ musicList, onRemove, onToggle }) {
     console.log("Active Music 개수 세기");
     return musicList.filter((music) => music.active).length;
   };
-  const count = countActiveMusic();
+  const count = useMemo(countActiveMusic, [musicList]);
 
   return (
     <>
