@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Music2 from "./Music2";
 
 function Music({ music, onRemove, onToggle }) {
@@ -7,6 +7,29 @@ function Music({ music, onRemove, onToggle }) {
     color: active ? "blue" : "black",
     cursor: "pointer",
   };
+
+  // 렌더링시마다 호출
+  useEffect(() => {
+    console.log("랜더링함");
+  });
+
+  // 마운트 또는 언마운트시에만 호출
+  useEffect(() => {
+    console.log("컴포넌트가 화면에 나타남");
+    return () => {
+      // clean-up 함수
+      console.log("컴포넌트가 화면에서 사라짐");
+    };
+  }, []);
+
+  // 업데이트시 호출
+  useEffect(() => {
+    console.log("music이 업데이트됨");
+    return () => {
+      console.log("music이 업데이트될거임");
+    };
+  }, [music]);
+
   return (
     <div>
       <b style={style} onClick={() => onToggle(id)}>
@@ -21,7 +44,7 @@ function MusicList({ musicList, onRemove, onToggle }) {
   return (
     <>
       {musicList.map((item) => (
-        <Music2
+        <Music
           key={item.id}
           music={item}
           onRemove={onRemove}

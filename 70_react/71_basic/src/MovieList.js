@@ -6,6 +6,15 @@ function Movie({ movie, onRemove, onToggle }) {
     color: active ? "blue" : "black",
     cursor: "pointer",
   };
+
+  // 업데이트시 호출
+  useEffect(() => {
+    console.log("movie이 업데이트됨");
+    return () => {
+      console.log("movie이 업데이트될거임");
+    };
+  }, [movie]);
+
   return (
     <div>
       <b style={style} onClick={() => onToggle(id)}>
