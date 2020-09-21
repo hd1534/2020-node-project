@@ -3,10 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import ReducerSample from "./reducerSample";
+import ReducerSample2 from "./reducerSample2";
 
 ReactDOM.render(
+  // StrictMode 는 에러를 탐지하기 위한 목적인가 뭐라나 하여간 그래서 2번 호출해서 뭐시기 한다.
   <React.StrictMode>
-    <App />
+    <ReducerSample2 />
   </React.StrictMode>, // 랜더링할 거
   document.getElementById("root") // 랜더링할 위치
 );
