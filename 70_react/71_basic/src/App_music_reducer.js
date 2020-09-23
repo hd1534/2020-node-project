@@ -49,7 +49,7 @@ function reducer(state, action) {
   }
 }
 
-function MusicStateApp() {
+function MusicReducerApp() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { title, singer } = state.music;
   const { musicList } = state;
@@ -104,4 +104,4 @@ function MusicStateApp() {
   );
 }
 
-export default MusicStateApp;
+export default MusicReducerApp;
