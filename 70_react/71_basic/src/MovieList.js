@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 
 function Movie({ movie, onRemove, onToggle }) {
   const { id, title, director, year, active } = movie;
@@ -26,6 +26,11 @@ function Movie({ movie, onRemove, onToggle }) {
 }
 
 function MovieList({ movieList, onRemove, onToggle }) {
+  const countActiveMovie = () => {
+    return movieList.filter((movie) => movie.active).length;
+  };
+  const count = useMemo(countActiveMovie, [movieList]);
+
   return (
     <>
       {movieList.map((item) => (
@@ -36,6 +41,8 @@ function MovieList({ movieList, onRemove, onToggle }) {
           onToggle={onToggle}
         />
       ))}
+      <hr />
+      <div>Active된 Movie 수 : {count}</div>
     </>
   );
 }

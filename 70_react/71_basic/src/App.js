@@ -1,62 +1,122 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import { useRef } from "react";
-import MusicList from "./MusicList";
-import CreateMusic from "./CreateMusic";
+import MovieList from "./MovieList";
+import CreateMovie from "./CreateMovie";
+
+function reducer(state, action) {
+  const { movie, movieList } = state;
+  switch (action.type) {
+    case "CREATE":
+      return {
+        movieList: movieList.concat({ id: action.nextId.current, ...movie }),
+        movie: { title: "", director: "", year: "", active: false },
+      };
+    case "CHANGE":
+      const { name, value } = action;
+      return {
+        ...state,
+        movie: { ...movie, [name]: value },
+      };
+    case "REMOVE":
+      return {
+        ...state,
+        movieList: movieList.filter((movie) => movie.id !== action.id),
+      };
+    case "TOGGLE":
+      return {
+        ...state,
+        movieList: movieList.map((movie) =>
+          movie.id === action.id ? { ...movie, active: !movie.active } : movie
+        ),
+      };
+    default:
+      throw new Error("Unhandled action");
+  }
+}
 
 function App() {
-  const [music, setMusic] = useState({
-    title: "",
-    singer: "",
-    active: false,
-  });
-
-  const { title, singer } = music;
-
-  let [musicList, setMusicList] = useState([
-    { id: 1, singer: "아이유", title: "Eight", active: false },
-    { id: 2, singer: "유산슬", title: "합정역5번출구", active: false },
-    { id: 3, singer: "악동뮤지션", title: "크레셴도", active: false },
-  ]);
-
   const nextId = useRef(4);
-  const inputSinger = useRef();
+  const inputTitle = useRef();
 
-  const onCreate = () => {
-    // setMusicList([...musicList, { id: nextId.current, ...music }]);
-    setMusicList(musicList.concat({ id: nextId.current, ...music }));
-    setMusic({ title: "", singer: "", active: false });
-    nextId.current += 1;
-    inputSinger.current.focus();
+  var initialState = {
+    movie: {
+      title: "",
+      director: "",
+      year: "",
+    },
+    movieList: [
+      {
+        id: 1,
+        title: "스타워즈",
+        director: "조지 루카스",
+        year: "1977",
+        active: false,
+      },
+      {
+        id: 2,
+        title: "아바타",
+        director: "제임스 카메론",
+        year: "2009",
+        active: false,
+      },
+      {
+        id: 3,
+        title: "인터스텔라",
+        director: "크리스토퍼 놀란",
+        year: "2014",
+        active: false,
+      },
+    ],
   };
 
-  const onChange = (event) => {
-    const { name, value } = event.target;
-    setMusic({ ...music, [name]: value });
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const onCreate = () => {
+    nextId.current += 1;
+    inputTitle.current.focus();
+    dispatch({
+      type: "CREATE",
+      nextId,
+    });
+
+    nextId.current += 1;
+  };
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    dispatch({
+      type: "CHANGE",
+      name,
+      value,
+    });
   };
 
   const onRemove = (id) => {
-    setMusicList(musicList.filter((item) => item.id !== id));
+    dispatch({
+      type: "REMOVE",
+      id,
+    });
   };
 
   const onToggle = (id) => {
-    setMusicList(
-      musicList.map((music) =>
-        music.id === id ? { ...music, active: !music.active } : music
-      )
-    );
+    dispatch({
+      type: "TOGGLE",
+      id,
+    });
   };
 
   return (
     <>
-      <CreateMusic
-        title={title}
-        singer={singer}
+      <CreateMovie
+        title={state.movie.title}
+        director={state.movie.director}
+        year={state.movie.year}
         onChange={onChange}
         onCreate={onCreate}
-        inputSinger={inputSinger}
+        inputTitle={inputTitle}
       />
-      <MusicList
-        musicList={musicList}
+      <MovieList
+        movieList={state.movieList}
         onRemove={onRemove}
         onToggle={onToggle}
       />
