@@ -1,7 +1,9 @@
 import React, { useReducer } from "react";
-import { useRef } from "react";
+import { useRef, createContext } from "react";
 import MovieList from "./MovieList";
 import CreateMovie from "./CreateMovie";
+
+export const MovieContext = createContext(null);
 
 function reducer(state, action) {
   const { movie, movieList } = state;
@@ -71,55 +73,18 @@ function App() {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const onCreate = () => {
-    nextId.current += 1;
-    inputTitle.current.focus();
-    dispatch({
-      type: "CREATE",
-      nextId,
-    });
-
-    nextId.current += 1;
-  };
-
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    dispatch({
-      type: "CHANGE",
-      name,
-      value,
-    });
-  };
-
-  const onRemove = (id) => {
-    dispatch({
-      type: "REMOVE",
-      id,
-    });
-  };
-
-  const onToggle = (id) => {
-    dispatch({
-      type: "TOGGLE",
-      id,
-    });
-  };
-
   return (
     <>
-      <CreateMovie
-        title={state.movie.title}
-        director={state.movie.director}
-        year={state.movie.year}
-        onChange={onChange}
-        onCreate={onCreate}
-        inputTitle={inputTitle}
-      />
-      <MovieList
-        movieList={state.movieList}
-        onRemove={onRemove}
-        onToggle={onToggle}
-      />
+      <MovieContext.Provider value={dispatch}>
+        <CreateMovie
+          title={state.movie.title}
+          director={state.movie.director}
+          year={state.movie.year}
+          inputTitle={inputTitle}
+          nextId={nextId}
+        />
+        <MovieList movieList={state.movieList} />
+      </MovieContext.Provider>
     </>
   );
 }

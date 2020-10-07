@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
+import { MovieContext } from "./App";
 
-function CreateMovie({
-  title,
-  director,
-  year,
-  onChange,
-  onCreate,
-  inputTitle,
-}) {
+function CreateMovie({ title, director, year, inputTitle, nextId }) {
+  const dispatch = useContext(MovieContext);
+
+  const onCreate = () => {
+    nextId.current += 1;
+    inputTitle.current.focus();
+    dispatch({
+      type: "CREATE",
+      nextId,
+    });
+
+    nextId.current += 1;
+  };
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    dispatch({
+      type: "CHANGE",
+      name,
+      value,
+    });
+  };
+
   return (
     <>
       <input

@@ -1,6 +1,23 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useContext } from "react";
+import { MovieContext } from "./App";
 
-function Movie({ movie, onRemove, onToggle }) {
+function Movie({ movie }) {
+  var dispatch = useContext(MovieContext);
+
+  const onRemove = (id) => {
+    dispatch({
+      type: "REMOVE",
+      id,
+    });
+  };
+
+  const onToggle = (id) => {
+    dispatch({
+      type: "TOGGLE",
+      id,
+    });
+  };
+
   const { id, title, director, year, active } = movie;
   const style = {
     color: active ? "blue" : "black",
@@ -25,7 +42,7 @@ function Movie({ movie, onRemove, onToggle }) {
   );
 }
 
-function MovieList({ movieList, onRemove, onToggle }) {
+function MovieList({ movieList }) {
   const countActiveMovie = () => {
     return movieList.filter((movie) => movie.active).length;
   };
@@ -34,12 +51,7 @@ function MovieList({ movieList, onRemove, onToggle }) {
   return (
     <>
       {movieList.map((item) => (
-        <Movie
-          key={item.id}
-          movie={item}
-          onRemove={onRemove}
-          onToggle={onToggle}
-        />
+        <Movie key={item.id} movie={item} />
       ))}
       <hr />
       <div>Active된 Movie 수 : {count}</div>
