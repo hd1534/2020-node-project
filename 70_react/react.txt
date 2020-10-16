@@ -80,6 +80,8 @@
 - music.json 파일 생성  // 더미 데이터
 - json-server --watch music.json --port 5000  // 더미 서버 실행
 
+16 react-async
+
 
 * * *
 
