@@ -1,3 +1,9 @@
+<!-- @format -->
+
+```
+    아무 생각없이 최상위 디렉토리에서 깃 커밋을 때렸었는데, 72_api 밑에 .git 파일이 따로 있어서 react.txt만 업데이트가 됬었....
+```
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
