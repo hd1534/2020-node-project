@@ -78,7 +78,7 @@
     - yarn add axios (Rest API 요청 시 Promise기반으로)
     - yarn global add json-server  // 이건 더미 서버 json으로 편하게 만드는거
     - music.json 파일 생성  // 더미 데이터
-    - json-server --watch music.json --port 5000  // 더미 서버 실행
+    - json-server --watch data.json --port 5000  // 더미 서버 실행
 
 16 react-async
     - 
